@@ -1,0 +1,17 @@
+<h1>回答結果</h1>
+
+<% @user_answers.each do |user_answer| %>
+  <div class="answer">
+    <h2>問題<%= user_answer.category_quiz_question_id %>：</h2>
+    <p><%= user_answer.category_quiz_question.content %></p>
+    
+    <% if user_answer.category_question_choice.is_correct %>
+      <p>正解</p>
+    <% else %>
+      <p>不正解</p>
+    <% end %>
+    
+    <p>○ 正解の選択肢：<%= user_answer.category_quiz_question.category_question_choices.find_by(is_correct: true).content %></p>
+    <p>✗ ユーザーの選択肢：<%= user_answer.category_question_choice.content %></p>
+  </div>
+<% end %>
