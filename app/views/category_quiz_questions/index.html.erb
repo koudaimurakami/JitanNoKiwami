@@ -1,4 +1,7 @@
+<% session_identifier = SecureRandom.uuid %>
+
 <%= form_with(model: UserAnswer.new, local: true) do |f| %>
+  <%= f.hidden_field :session_identifier, value: session_identifier %>
   <% @questions_with_choices.each_with_index do |question_data, question_number| %>
     <div class="main__quiz--question">
       <p>問題<%= question_number + 1 %>：<%= question_data[:question].content %></p>
