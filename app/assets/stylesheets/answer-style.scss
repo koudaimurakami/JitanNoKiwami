@@ -1,0 +1,19 @@
+.main__quiz {
+  
+  &--answer {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  
+  &--answer-each {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: calc(100% - 40px);
+    h2 {
+    margin-top: 0;
+    }
+  }
+  
+}
+

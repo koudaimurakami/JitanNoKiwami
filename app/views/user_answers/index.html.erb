@@ -1,0 +1,24 @@
+<div class="main__quiz--answer">
+  <h1 class="mb-3">回答結果</h1>
+  
+  <% @user_answers.each_with_index do |user_answer, index| %>
+    <div class="main__quiz--answer-each">
+      <h2>問題<%= index + 1 %>：</h2>
+      <p><%= user_answer.category_quiz_question.content %></p>
+      
+      <% if user_answer.category_question_choice.is_correct %>
+        <p class="text-success">正解</p>
+      <% else %>
+        <p class="text-danger">不正解</p>
+      <% end %>
+      
+      <p>○ 正解の選択肢：<%= user_answer.category_quiz_question.category_question_choices.find_by(is_correct: true).content %></p>
+      
+      <% if user_answer.category_question_choice.is_correct %>
+        <p>○ あなたの選択肢：<%= user_answer.category_question_choice.content %></p>
+      <% else %>
+        <p>✗ あなたの選択肢：<%= user_answer.category_question_choice.content %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

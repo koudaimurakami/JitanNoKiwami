@@ -1,16 +1,23 @@
-<%= form_with(model: @user_answer || UserAnswer.new, local: true) do |f| %>
+<% session_identifier = SecureRandom.uuid %>
 
+<%= form_with(model: UserAnswer.new, local: true) do |f| %>
+  <%= f.hidden_field :session_identifier, value: session_identifier %>
   <% @questions_with_choices.each_with_index do |question_data, question_number| %>
     <div class="main__quiz--question">
       <p>問題<%= question_number + 1 %>：<%= question_data[:question].content %></p>
       <ul>
-        <%= f.collection_radio_buttons :category_question_choice_id, question_data[:choices].map { |choice| [choice.id, choice.content] }, :first, :last do |b| %>
-          <div class="main__quiz--radio">
-            <li>
-              <%= b.radio_button %>
-              <%= b.label %>
-            </li>
-          </div>
+        <%= f.fields_for "user_answer_#{question_number}", UserAnswer.new do |ff| %>
+          <%= ff.hidden_field :user_id, value: current_user.id %>
+          <%= ff.hidden_field :category_quiz_question_id, value: question_data[:question].id %>
+          <%= ff.hidden_field :category_question_choice_id, value: question_data[:choices].first.id %>
+          <%= ff.collection_radio_buttons :category_question_choice_id, question_data[:choices].map { |choice| [choice.id, choice.content] }, :first, :last do |b| %>
+            <div class="main__quiz--radio">
+              <li>
+                <%= b.radio_button %>
+                <%= b.label %>
+              </li>
+            </div>
+          <% end %>
         <% end %>
       </ul>
     </div>
@@ -19,5 +26,4 @@
   <div class="main__quiz--submit">
     <%= f.submit "回答を送信する", class: "btn btn-success mt-4" %>
   </div>
-  
 <% end %>

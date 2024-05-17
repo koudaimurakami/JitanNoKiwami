@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_30_131943) do
+ActiveRecord::Schema.define(version: 2024_05_15_151610) do
 
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 30, null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2024_04_30_131943) do
     t.bigint "category_question_choice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "session_identifier"
     t.index ["category_question_choice_id"], name: "index_user_answers_on_category_question_choice_id"
     t.index ["category_quiz_question_id"], name: "index_user_answers_on_category_quiz_question_id"
     t.index ["user_id"], name: "index_user_answers_on_user_id"
